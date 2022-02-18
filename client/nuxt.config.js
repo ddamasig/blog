@@ -17,8 +17,14 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
+  server: {
+    host: '192.168.1.5'
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: [
+    '~/assets/css/fonts.css'
+  ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
@@ -49,9 +55,20 @@ export default {
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
+    treeShake: true,
+    defaultAssets: {
+      font: {
+        family: 'Quicksand'
+      }
+    },
     theme: {
-      dark: true,
+      dark: false,
       themes: {
+        light: {
+          // primary: '#58b6d4',
+          primary: '#0085fe',
+          background: '#f5f5f7'
+        },
         dark: {
           primary: colors.blue.darken2,
           accent: colors.grey.darken3,
