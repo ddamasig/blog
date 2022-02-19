@@ -13,13 +13,13 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         return CommentResource::collection(
             Comment::with(['replies'])
                 ->withCount('replies')
-                ->orderBy('created_at')
-                ->paginate()
+                ->orderBy('created_at', 'desc')
+                ->paginate($request->limit)
         );
     }
 

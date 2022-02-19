@@ -32,9 +32,9 @@ export const mutations = {
  */
 export const actions = {
   // Get a collection of paginated Comment from the database filtered by user id and start date
-  async get({commit}) {
+  async get({commit}, limit=5) {
     console.log('Getting Comments')
-    await this.$axios.get(`/comments`)
+    await this.$axios.get(`/comments?limit=${limit}`)
       .then((res) => {
         if (res.status === 200) {
           // Update the list with the new data

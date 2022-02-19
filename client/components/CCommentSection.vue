@@ -11,7 +11,15 @@
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title>
-          <v-btn class="text-capitalize" small block text>Load more...</v-btn>
+          <v-btn
+            @click="getComments(5)"
+            class="text-capitalize"
+            small
+            block
+            text
+            :loading="isLoading"
+          >Load older comments...
+          </v-btn>
         </v-list-item-title>
       </v-list-item-content>
     </v-list-item>
@@ -38,11 +46,27 @@ export default {
   },
   data: () => ({
     hint: '',
+    limit: 5,
+    isLoading: false
   }),
   async created() {
-    await this.$store.dispatch('comments/get')
+    await this.getComments()
   },
   methods: {
+    async getComments(increaseBy=0) {
+      // Increase the limit
+      this.limit += increaseBy
+
+      // Show the loader
+      this.isLoading = true
+
+      // Fire a VueX action to get the comments
+      await this.$store.dispatch('comments/get', this.limit)
+
+      setTimeout(() => {
+        this.isLoading = false
+      }, 300)
+    },
     randomAvatar() {
       const randomInt = Math.floor(Math.random() * 9)
       return `https://i.pravatar.cc/${121 + randomInt}`

@@ -38,9 +38,12 @@
       <v-list-item-action class="fill-height mb-auto">
         <v-list-item-action-text class="mb-auto">
           <v-btn
+            :loading="isLoading"
             type="submit"
             icon
+            color="white"
             class="primary mb-auto"
+            light
           >
             <v-icon small color="white">mdi-send</v-icon>
           </v-btn>
@@ -57,6 +60,7 @@ export default {
     avatar: String
   },
   data: () => ({
+    isLoading: false,
     model: {
       user: 'Dean',
       message: '',
@@ -74,7 +78,7 @@ export default {
     }
   }),
   methods: {
-    submit() {
+    async submit() {
       // Validate the form first
       const isValid = this.$refs.form.validate()
       console.log(isValid)
@@ -82,7 +86,20 @@ export default {
         return
       }
 
-      this.$store.dispatch('comments/save', this.model)
+      // Show the loader
+      this.isLoading = true
+
+      // Fire the VueX action to create the comment in the back-end
+      await this.$store.dispatch('comments/save', this.model)
+
+      // Hide the loader
+      setTimeout(() => {
+        this.isLoading = false
+      }, 300)
+
+      // Reset the message
+      this.model.message = ''
+      this.$refs.form.resetValidation()
     },
     randomAvatar() {
       const randomInt = Math.floor(Math.random() * 9)
