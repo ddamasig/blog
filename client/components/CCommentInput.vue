@@ -93,7 +93,7 @@ export default {
     isLoading: false,
     show: true,
     model: {
-      user: 'Dean',
+      user: '',
       message: '',
       parent_id: null
     },
