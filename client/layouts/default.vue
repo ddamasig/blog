@@ -7,6 +7,9 @@
         <Nuxt/>
       </v-container>
     </v-main>
+
+    <!-- Comment Input -->
+    <c-comment-input-bottom-sheet v-if="$store.getters['comments/showCommentInput']"></c-comment-input-bottom-sheet>
   </v-app>
 </template>
 

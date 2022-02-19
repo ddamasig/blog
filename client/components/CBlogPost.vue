@@ -55,10 +55,11 @@
       <v-btn
         elevation="0"
         color="primary"
+        @click="showCommentInput()"
       >
         <span class="text-capitalize">
-          Read More
-          <v-icon>mdi-arrow-right</v-icon>
+          Comment
+          <v-icon>mdi-message-processing-outline</v-icon>
         </span>
       </v-btn>
     </v-card-actions>
@@ -80,9 +81,17 @@ export default {
     blog: Object,
   },
   computed: {
+    commentInput() {
+      return this.$store.getters["comments/showCommentInput"]
+    },
     randomAvatar() {
       const randomInt = Math.floor(Math.random() * 7)
       return `https://i.pravatar.cc/${121 + randomInt}`
+    }
+  },
+  methods: {
+    showCommentInput() {
+      this.$store.commit('comments/TOGGLE_COMMENT_INPUT')
     }
   }
 }

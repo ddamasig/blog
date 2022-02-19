@@ -25,11 +25,10 @@
       :comment="comment"
     ></c-comment>
 
-    <!-- Comment Input -->
-    <c-comment-input
-      :avatar="randomAvatar()"
-      :hint="hint"
-    ></c-comment-input>
+    <c-comment-input :bottom-sheet="false"
+                     class="d-none d-sm-block"
+    >
+    </c-comment-input>
   </div>
 
 
@@ -54,7 +53,7 @@ export default {
     await this.getComments()
   },
   methods: {
-    async getComments(increaseBy=0) {
+    async getComments(increaseBy = 0) {
       // Increase the limit
       this.limit += increaseBy
 

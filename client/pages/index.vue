@@ -16,6 +16,9 @@
         ></c-blog-post>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col cols="12" class="py-12 my-12"></v-col>
+    </v-row>
   </div>
 
 </template>
@@ -34,24 +37,24 @@ export default {
         comments: '10k',
         areCommentsDisabled: false,
       },
-      {
-        title: 'Juan Dela Cruz',
-        subtitle: 'jdelacruz@example.com',
-        content: 'Cras ac nunc leo. Aenean eleifend venenatis odio, vel egestas ipsum faucibus sed. Duis feugiat vel erat pretium cursus. Nulla suscipit convallis lectus, ut aliquam quam dignissim at.',
-        photo: '/header-1.jpg',
-        likes: '2.5k',
-        comments: '421',
-        areCommentsDisabled: true,
-      },
-      {
-        title: 'Khabib Nurmagomedov',
-        subtitle: 'eaglemma@example.com',
-        content: 'Cras ac nunc leo. Aenean eleifend venenatis odio, vel egestas ipsum faucibus sed. Duis feugiat vel erat pretium cursus. Nulla suscipit convallis lectus, ut aliquam quam dignissim at.',
-        photo: null,
-        likes: '7.8k',
-        comments: '3k',
-        areCommentsDisabled: true,
-      },
+      // {
+      //   title: 'Juan Dela Cruz',
+      //   subtitle: 'jdelacruz@example.com',
+      //   content: 'Cras ac nunc leo. Aenean eleifend venenatis odio, vel egestas ipsum faucibus sed. Duis feugiat vel erat pretium cursus. Nulla suscipit convallis lectus, ut aliquam quam dignissim at.',
+      //   photo: '/header-1.jpg',
+      //   likes: '2.5k',
+      //   comments: '421',
+      //   areCommentsDisabled: true,
+      // },
+      // {
+      //   title: 'Khabib Nurmagomedov',
+      //   subtitle: 'eaglemma@example.com',
+      //   content: 'Cras ac nunc leo. Aenean eleifend venenatis odio, vel egestas ipsum faucibus sed. Duis feugiat vel erat pretium cursus. Nulla suscipit convallis lectus, ut aliquam quam dignissim at.',
+      //   photo: null,
+      //   likes: '7.8k',
+      //   comments: '3k',
+      //   areCommentsDisabled: true,
+      // },
     ]
   }),
 }

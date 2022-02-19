@@ -81,6 +81,7 @@ export default {
   methods: {
     reply() {
       this.$store.commit('comments/SET_REPLYING_TO', this.comment)
+      this.$store.commit('comments/TOGGLE_COMMENT_INPUT')
     },
     randomAvatar() {
       const randomInt = Math.floor(Math.random() * 9)

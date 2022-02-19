@@ -1,7 +1,7 @@
 <template>
   <!-- Comment Input-->
-  <v-form ref="form" @submit.prevent="submit()">
-    <v-divider class="mt-2 mb-4"></v-divider>
+  <v-form ref="form" @submit.prevent="submit()" class="white fill-height mt-0">
+    <v-divider class="mb-4"></v-divider>
     <div v-if="replyingTo">
       <span
         class="pl-6"
@@ -35,7 +35,7 @@
             :disabled="isLoading"
           ></v-text-field>
         </v-list-item-title>
-        <v-list-item-text>
+        <v-list-item-subtitle>
           <v-textarea
             v-model="model.message"
             :rules="rules.message"
@@ -49,11 +49,10 @@
             auto-grow
             row-height="1"
             persistent-hint
-            :hint="hint"
             :disabled="isLoading"
           >
           </v-textarea>
-        </v-list-item-text>
+        </v-list-item-subtitle>
       </v-list-item-content>
       <v-list-item-action class="fill-height mb-auto">
         <v-list-item-action-text class="mb-auto">
@@ -67,6 +66,18 @@
           >
             <v-icon small color="white">mdi-send</v-icon>
           </v-btn>
+          <br/>
+          <v-btn
+            v-if="bottomSheet"
+            :loading="isLoading"
+            type="submit"
+            icon
+            class="mt-8 background"
+            @click="close()"
+            light
+          >
+            <v-icon small>mdi-close</v-icon>
+          </v-btn>
         </v-list-item-action-text>
       </v-list-item-action>
     </v-list-item>
@@ -76,11 +87,11 @@
 <script>
 export default {
   props: {
-    hint: String,
-    avatar: String
+    bottomSheet: Boolean
   },
   data: () => ({
     isLoading: false,
+    show: true,
     model: {
       user: 'Dean',
       message: '',
@@ -100,7 +111,7 @@ export default {
   computed: {
     replyingTo() {
       return this.$store.getters["comments/replyingTo"]
-    }
+    },
   },
   methods: {
     async submit() {
@@ -128,15 +139,19 @@ export default {
       // Reset the message
       this.model.message = ''
       this.$refs.form.resetValidation()
-      this.cancelReply()
+      this.close()
     },
     randomAvatar() {
       const randomInt = Math.floor(Math.random() * 9)
       return `https://i.pravatar.cc/${121 + randomInt}`
     },
     cancelReply() {
-       this.$store.commit('comments/SET_REPLYING_TO', null)
+      this.$store.commit('comments/SET_REPLYING_TO', null)
     },
+    close() {
+      this.$store.commit('comments/TOGGLE_COMMENT_INPUT')
+      this.cancelReply()
+    }
   }
 }
 </script>

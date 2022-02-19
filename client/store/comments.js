@@ -5,7 +5,8 @@ export const state = () => ({
   // This will contain the list of Comment instances
   list: [],
   // This indicates the comment that you are replying to
-  replyingTo: null
+  replyingTo: null,
+  showCommentInput: false,
 })
 
 /**
@@ -16,7 +17,8 @@ export const getters = {
   replyingTo: state => state.replyingTo,
   find: (state) => (id) => {
     return state.list.data.find(e => e.id === id)
-  }
+  },
+  showCommentInput: state => state.showCommentInput,
 }
 
 /**
@@ -30,6 +32,12 @@ export const mutations = {
   // Sets the value of the list state
   SET_LIST(state, data) {
     state.list = data
+  },
+  // Sets the value of the list state
+  TOGGLE_COMMENT_INPUT(state) {
+    console.log('Toggling Comment Input')
+    state.showCommentInput = !state.showCommentInput
+    console.log(state.showCommentInput)
   },
   // Inserts a new Comment as a reply
   APPEND_REPLY(state, {parentId, reply}) {
