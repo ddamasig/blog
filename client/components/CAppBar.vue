@@ -25,11 +25,8 @@
     <v-spacer></v-spacer>
 
     <v-btn icon>
-      <v-icon>mdi-message-processing-outline</v-icon>
+      <v-icon>mdi-dots-vertical</v-icon>
     </v-btn>
-<!--    <v-btn icon>-->
-<!--      <v-icon>mdi-dots-vertical</v-icon>-->
-<!--    </v-btn>-->
   </v-app-bar>
 </template>
 

@@ -4,94 +4,10 @@
     inset
     v-model="show"
     hide-overlay
-    class="ma-0 pa-0 d-none d-sm-none"
+    class="ma-0 pa-0"
     persistent
   >
-    <v-form
-      ref="form"
-      @submit.prevent="submit()"
-      class="white fill-height mt-0 d-sm-none"
-    >
-      <v-divider class="mb-4"></v-divider>
-      <div v-if="replyingTo">
-      <span
-        class="pl-6"
-        style="font-size: 0.9rem"
-      >
-        Replying to <b>{{ replyingTo.user }}</b>
-      </span>
-        <v-btn
-          @click="cancelReply()"
-          small
-          text
-          link
-          class="text-capitalize font-weight-bold"
-          color="error"
-        >
-          Cancel
-        </v-btn>
-      </div>
-      <v-list-item class="align-start align-content-start">
-        <v-list-item-content class="pt-3 pb-0 mb-0">
-          <v-list-item-title>
-            <v-text-field
-              v-model="model.user"
-              :rules="rules.user"
-              prepend-inner-icon="mdi-account"
-              filled
-              color="primary"
-              flat
-              rounded
-              dense
-              :disabled="isLoading"
-            ></v-text-field>
-          </v-list-item-title>
-          <v-list-item-subtitle>
-            <v-textarea
-              v-model="model.message"
-              :rules="rules.message"
-              prepend-inner-icon="mdi-email"
-              dense
-              placeholder="Write a comment..."
-              color="primary"
-              filled
-              flat
-              rounded
-              auto-grow
-              row-height="1"
-              persistent-hint
-              :disabled="isLoading"
-            >
-            </v-textarea>
-          </v-list-item-subtitle>
-        </v-list-item-content>
-        <v-list-item-action class="fill-height mb-auto">
-          <v-list-item-action-text class="mb-auto">
-            <v-btn
-              :loading="isLoading"
-              type="submit"
-              icon
-              color="white"
-              class="primary mb-auto"
-              light
-            >
-              <v-icon small color="white">mdi-send</v-icon>
-            </v-btn>
-            <br/>
-            <v-btn
-              :loading="isLoading"
-              type="submit"
-              icon
-              class="mt-8 background"
-              @click="close()"
-              light
-            >
-              <v-icon small>mdi-close</v-icon>
-            </v-btn>
-          </v-list-item-action-text>
-        </v-list-item-action>
-      </v-list-item>
-    </v-form>
+    <c-comment-input class="d-block d-sm-none" :bottom-sheet="true"></c-comment-input>
   </v-bottom-sheet>
 </template>
 
