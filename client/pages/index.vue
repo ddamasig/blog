@@ -26,20 +26,22 @@ export default {
   data: () => ({
     blogs: [
       {
-        title: 'Juan Dela Cruz',
-        subtitle: 'jdelacruz@example.com',
-        content: 'Cras ac nunc leo. Aenean eleifend venenatis odio, vel egestas ipsum faucibus sed. Duis feugiat vel erat pretium cursus. Nulla suscipit convallis lectus, ut aliquam quam dignissim at.',
-        photo: '/header-8.jpeg',
-        likes: '2.5k',
-        comments: '421',
-      },
-      {
         title: 'Conor McGregor',
         subtitle: 'notoriousmma@example.com',
         content: 'Cras ac nunc leo. Aenean eleifend venenatis odio, vel egestas ipsum faucibus sed. Duis feugiat vel erat pretium cursus. Nulla suscipit convallis lectus, ut aliquam quam dignissim at.',
-        photo: '/header-2.jpg',
+        photo: '/header-7.jpg',
         likes: '29.2k',
         comments: '10k',
+        areCommentsDisabled: false,
+      },
+      {
+        title: 'Juan Dela Cruz',
+        subtitle: 'jdelacruz@example.com',
+        content: 'Cras ac nunc leo. Aenean eleifend venenatis odio, vel egestas ipsum faucibus sed. Duis feugiat vel erat pretium cursus. Nulla suscipit convallis lectus, ut aliquam quam dignissim at.',
+        photo: '/header-1.jpg',
+        likes: '2.5k',
+        comments: '421',
+        areCommentsDisabled: true,
       },
       {
         title: 'Khabib Nurmagomedov',
@@ -48,7 +50,8 @@ export default {
         photo: null,
         likes: '7.8k',
         comments: '3k',
-      }
+        areCommentsDisabled: true,
+      },
     ]
   }),
 }

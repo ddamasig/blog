@@ -20,6 +20,7 @@ class CommentResource extends JsonResource
             'message' => $this->message,
             'replies' => $this->comments,
             'parent' => $this->parent,
+            'created_at' => $this->created_at,
         ];
     }
 }

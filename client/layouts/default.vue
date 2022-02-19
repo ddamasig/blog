@@ -1,48 +1,12 @@
 <template>
   <v-app dark style="background: #f5f5f7">
-    <v-app-bar
-      color="background"
-      class="px-2 justify-space-between"
-      app
-      hide-on-scroll
-      elevate-on-scroll
-    >
-      <v-app-bar-nav-icon>
-        <v-btn icon>
-          <v-icon>mdi-refresh</v-icon>
-        </v-btn>
-      </v-app-bar-nav-icon>
+    <c-app-bar></c-app-bar>
 
-      <v-spacer></v-spacer>
-
-      <v-app-bar-title class="font-weight-bold text-center">
-        Trending Posts
-      </v-app-bar-title>
-
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
-    </v-app-bar>
     <v-main class="pt-8">
       <v-container>
         <Nuxt/>
       </v-container>
     </v-main>
-    <!--    <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>-->
-    <!--      <v-list>-->
-    <!--        <v-list-item @click.native="right = !right">-->
-    <!--          <v-list-item-action>-->
-    <!--            <v-icon light> mdi-repeat </v-icon>-->
-    <!--          </v-list-item-action>-->
-    <!--          <v-list-item-title>Switch drawer (click me)</v-list-item-title>-->
-    <!--        </v-list-item>-->
-    <!--      </v-list>-->
-    <!--    </v-navigation-drawer>-->
-    <v-footer :absolute="!fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
   </v-app>
 </template>
 

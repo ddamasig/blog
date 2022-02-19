@@ -6,35 +6,21 @@
       :comment="comment"
     ></c-comment>
 
-    <!-- Comment Input-->
+
+    <!-- Load more comments -->
     <v-list-item>
-      <v-list-item-avatar size="32">
-        <v-img :src="randomAvatar()"></v-img>
-      </v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title>
-          <v-textarea
-            dense
-            placeholder="Write a comment..."
-            color="primary"
-            filled
-            flat
-            rounded
-            hide-details
-            auto-grow
-            row-height="1"
-          >
-          </v-textarea>
+          <v-btn class="text-capitalize" small block text>Load more...</v-btn>
         </v-list-item-title>
       </v-list-item-content>
-      <v-list-item-action>
-        <v-list-item-action-text>
-          <v-btn icon class="primary">
-            <v-icon small color="white">mdi-send</v-icon>
-          </v-btn>
-        </v-list-item-action-text>
-      </v-list-item-action>
     </v-list-item>
+
+
+    <c-comment-input
+      :avatar="randomAvatar()"
+      :hint="hint"
+    ></c-comment-input>
   </div>
 
 
@@ -45,36 +31,22 @@ export default {
   props: {
     blog: Object
   },
+  computed: {
+    comments() {
+      return this.$store.getters["comments/list"].data
+    }
+  },
   data: () => ({
-    comments: [
-      {
-        user: 'Sean O\'Malley',
-        message: 'Praesent sed congue lorem, non volutpat massa. Phasellus iaculis tempus erat vitae fringilla.'
-      },
-      {
-        user: 'Brandon Moreno',
-        message: 'Etiam lacus nisl, feugiat nec mollis ut, porttitor sed lectus.'
-      }
-    ]
+    hint: '',
   }),
+  async created() {
+    await this.$store.dispatch('comments/get')
+  },
   methods: {
     randomAvatar() {
       const randomInt = Math.floor(Math.random() * 9)
       return `https://i.pravatar.cc/${121 + randomInt}`
     }
   }
-  // computed: {
-  //   randomAvatar() {
-  //     const randomInt = Math.floor(Math.random() * 9)
-  //     return `https://i.pravatar.cc/${121 + randomInt}`
-  //   }
-  // }
 }
 </script>
-
-
-<style>
-.nuxt-logo {
-  height: 180px;
-}
-</style>

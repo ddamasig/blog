@@ -24,7 +24,7 @@
         elevation="0"
         class="mt-2"
       >
-        <v-img :src="blog.photo"></v-img>
+        <v-img class="grey lighten-4" max-height="400" :src="blog.photo"></v-img>
       </v-card>
     </v-card-text>
 
@@ -48,13 +48,19 @@
         elevation="0"
         color="primary"
       >
-        <span class="text-capitalize">Read More</span>
+        <span class="text-capitalize">
+          Read More
+          <v-icon>mdi-arrow-right</v-icon>
+        </span>
       </v-btn>
     </v-card-actions>
 
     <v-divider class="mt-4"></v-divider>
 
-    <v-card-actions class="px-4">
+
+    <v-card-actions
+      v-if="!blog.areCommentsDisabled"
+      class="px-4">
       <c-comment-section></c-comment-section>
     </v-card-actions>
   </v-card>
@@ -63,7 +69,7 @@
 <script>
 export default {
   props: {
-    blog: Object
+    blog: Object,
   },
   computed: {
     randomAvatar() {
@@ -73,10 +79,3 @@ export default {
   }
 }
 </script>
-
-
-<style>
-.nuxt-logo {
-  height: 180px;
-}
-</style>
