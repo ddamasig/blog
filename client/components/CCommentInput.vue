@@ -128,6 +128,7 @@ export default {
       // Reset the message
       this.model.message = ''
       this.$refs.form.resetValidation()
+      this.cancelReply()
     },
     randomAvatar() {
       const randomInt = Math.floor(Math.random() * 9)

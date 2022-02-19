@@ -3,7 +3,11 @@
     <v-card-title>
       <v-list-item class="pa-0">
         <v-list-item-avatar>
-          <v-img :src="randomAvatar"></v-img>
+          <v-img
+            :src="randomAvatar"
+            lazy-src="/lazy-avatar.png"
+          >
+          </v-img>
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title class="grey--text text--darken-2">
@@ -24,7 +28,11 @@
         elevation="0"
         class="mt-2"
       >
-        <v-img class="grey lighten-4" max-height="400" :src="blog.photo"></v-img>
+        <v-img
+          class="grey lighten-4"
+          lazy-src="https://picsum.photos/id/11/100/68"
+          max-height="400"
+          :src="blog.photo"></v-img>
       </v-card>
     </v-card-text>
 

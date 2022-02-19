@@ -16,8 +16,7 @@ class CommentController extends Controller
     public function index(Request $request)
     {
         return CommentResource::collection(
-            Comment::with(['replies'])
-                ->whereHas('replies')
+            Comment::with(['replies', 'replies.replies'])
                 ->withCount('replies')
                 ->where('parent_id', null)
                 ->orderBy('created_at', 'desc')
