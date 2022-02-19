@@ -27,6 +27,7 @@
             v-model="model.user"
             :rules="rules.user"
             prepend-inner-icon="mdi-account"
+            autofocus
             filled
             color="primary"
             flat
