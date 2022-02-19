@@ -19,6 +19,8 @@
     <v-row>
       <v-col cols="12" class="py-12 my-12"></v-col>
     </v-row>
+    <!-- Comment Input -->
+    <c-comment-input-bottom-sheet v-if="$store.getters['comments/showCommentInput']"></c-comment-input-bottom-sheet>
   </div>
 
 </template>
