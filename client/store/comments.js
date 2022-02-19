@@ -3,7 +3,9 @@
  */
 export const state = () => ({
   // This will contain the list of Comment instances
-  list: []
+  list: [],
+  // This indicates the comment that you are replying to
+  replyingTo: null
 })
 
 /**
@@ -11,6 +13,10 @@ export const state = () => ({
  */
 export const getters = {
   list: state => state.list,
+  replyingTo: state => state.replyingTo,
+  find: (state) => (id) => {
+    return state.list.data.find(e => e.id === id)
+  }
 }
 
 /**
@@ -18,12 +24,41 @@ export const getters = {
  */
 export const mutations = {
   // Sets the value of the list state
+  SET_REPLYING_TO(state, data) {
+    state.replyingTo = data
+  },
+  // Sets the value of the list state
   SET_LIST(state, data) {
     state.list = data
   },
-  // Inserts a new Comment at the tail of the array
-  INSERT(state, data) {
-    state.list.data.push(data)
+  // Inserts a new Comment as a reply
+  APPEND_REPLY(state, {parentId, reply}) {
+    state.list.data.forEach(e => {
+      // If the parent is in the root level
+      if (e.id === parentId) {
+        // Make sure that the replies attribute is an array
+        if (e.replies === null) {
+          e.replies = []
+        }
+        e.replies.unshift(reply)
+        return
+      }
+
+      if (e.replies) {
+        e.replies.forEach(c => {
+          if(parentId === c.id) {
+            if (c.replies === null) {
+              c.replies = []
+            }
+            c.replies.unshift(reply)
+          }
+        })
+      }
+    })
+  },
+  // Inserts a new Event at in front of the array
+  UNSHIFT(state, data) {
+    state.list.data.unshift(data)
   },
 }
 
@@ -32,7 +67,7 @@ export const mutations = {
  */
 export const actions = {
   // Get a collection of paginated Comment from the database filtered by user id and start date
-  async get({commit}, limit=5) {
+  async get({commit}, limit = 5) {
     console.log('Getting Comments')
     await this.$axios.get(`/comments?limit=${limit}`)
       .then((res) => {
@@ -43,13 +78,27 @@ export const actions = {
       })
   },
   // Create a new instance of Comment
-  async save({commit}, model) {
+  async save({commit, getters}, model) {
     const response = await this.$axios.post('/comments', model)
 
     if (response.status === 201) {
-      // Insert the newly created Comment instance to the list
-      console.log(response.data)
-      commit('INSERT', response.data)
+      const newComment = response.data
+      console.log('New Comment:')
+      console.log(newComment)
+      // Check if the comment is a reply
+      if (newComment.parent_id) {
+        console.log('Appending to parent')
+        // Find it's parent comment
+        console.log('Looking for Parent with id ' + newComment.parent_id)
+        commit('APPEND_REPLY', {
+          parentId: newComment.parent_id,
+          reply: newComment
+        })
+      } else {
+        console.log('Appending new comment')
+        // Insert the newly created Comment instance to the list
+        commit('UNSHIFT', response.data)
+      }
     }
 
     return response

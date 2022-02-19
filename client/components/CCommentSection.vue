@@ -1,11 +1,5 @@
 <template>
   <div class="pa-0 ma-0 flex-fill">
-    <c-comment
-      v-for="(comment, index) in comments"
-      :key="index"
-      :comment="comment"
-    ></c-comment>
-
 
     <!-- Load more comments -->
     <v-list-item>
@@ -24,7 +18,14 @@
       </v-list-item-content>
     </v-list-item>
 
+    <!-- Root Comments -->
+    <c-comment
+      v-for="(comment, index) in comments"
+      :key="index"
+      :comment="comment"
+    ></c-comment>
 
+    <!-- Comment Input -->
     <c-comment-input
       :avatar="randomAvatar()"
       :hint="hint"

@@ -2,6 +2,24 @@
   <!-- Comment Input-->
   <v-form ref="form" @submit.prevent="submit()">
     <v-divider class="mt-2 mb-4"></v-divider>
+    <div v-if="replyingTo">
+      <span
+        class="pl-6"
+        style="font-size: 0.9rem"
+      >
+        Replying to <b>{{ replyingTo.user }}</b>
+      </span>
+      <v-btn
+        @click="cancelReply()"
+        small
+        text
+        link
+        class="text-capitalize font-weight-bold"
+        color="error"
+      >
+        Cancel
+      </v-btn>
+    </div>
     <v-list-item class="align-start align-content-start">
       <v-list-item-content class="pt-3 pb-0 mb-0">
         <v-list-item-title>
@@ -14,6 +32,7 @@
             flat
             rounded
             dense
+            :disabled="isLoading"
           ></v-text-field>
         </v-list-item-title>
         <v-list-item-text>
@@ -31,6 +50,7 @@
             row-height="1"
             persistent-hint
             :hint="hint"
+            :disabled="isLoading"
           >
           </v-textarea>
         </v-list-item-text>
@@ -77,6 +97,11 @@ export default {
       ]
     }
   }),
+  computed: {
+    replyingTo() {
+      return this.$store.getters["comments/replyingTo"]
+    }
+  },
   methods: {
     async submit() {
       // Validate the form first
@@ -88,6 +113,9 @@ export default {
 
       // Show the loader
       this.isLoading = true
+      if (this.replyingTo) {
+        this.model.parent_id = this.replyingTo.id
+      }
 
       // Fire the VueX action to create the comment in the back-end
       await this.$store.dispatch('comments/save', this.model)
@@ -104,7 +132,10 @@ export default {
     randomAvatar() {
       const randomInt = Math.floor(Math.random() * 9)
       return `https://i.pravatar.cc/${121 + randomInt}`
-    }
+    },
+    cancelReply() {
+       this.$store.commit('comments/SET_REPLYING_TO', null)
+    },
   }
 }
 </script>

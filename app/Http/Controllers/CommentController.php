@@ -17,7 +17,9 @@ class CommentController extends Controller
     {
         return CommentResource::collection(
             Comment::with(['replies'])
+                ->whereHas('replies')
                 ->withCount('replies')
+                ->where('parent_id', null)
                 ->orderBy('created_at', 'desc')
                 ->paginate($request->limit)
         );
