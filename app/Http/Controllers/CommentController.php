@@ -38,6 +38,9 @@ class CommentController extends Controller
             'parent_id' => 'nullable|exists:comments,id',
         ]);
 
+        // Set the user avatar automatically
+        $fields['avatar'] = '/avatar5.jpeg';
+
         $comment = Comment::create($fields);
 
         return response()->json(

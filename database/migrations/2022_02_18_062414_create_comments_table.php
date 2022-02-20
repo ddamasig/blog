@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->string('user')->max(128);
-            $table->text('message')->max(1000);
+            $table->string('user')->max(32);
+            $table->text('message')->max(256);
+            $table->string('avatar')->max(32);
             $table->foreignId('parent_id')->nullable()->constrained('comments');
         });
     }

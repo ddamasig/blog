@@ -34,10 +34,8 @@ export const mutations = {
     state.list = data
   },
   // Sets the value of the list state
-  TOGGLE_COMMENT_INPUT(state) {
-    console.log('Toggling Comment Input')
-    state.showCommentInput = !state.showCommentInput
-    console.log(state.showCommentInput)
+  TOGGLE_COMMENT_INPUT(state, data) {
+    state.showCommentInput = data
   },
   // Inserts a new Comment as a reply
   APPEND_REPLY(state, {parentId, reply}) {

@@ -16,9 +16,9 @@ class CommentSeeder extends Seeder
     public function run()
     {
         // Create 10 records of customers
-        Comment::factory(4)->create()->each(function ($comment) {
+        Comment::factory(2)->create()->each(function ($comment) {
             // Randomize the number of sub comments
-            $subCount = random_int(1, 3);
+            $subCount = random_int(1, 2);
             // Seed the relation with one address
             $subComments = Comment::factory($subCount)->make([
                 'parent_id' => $comment

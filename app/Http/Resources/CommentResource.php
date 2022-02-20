@@ -18,10 +18,10 @@ class CommentResource extends JsonResource
             'id' => $this->id,
             'user' => $this->user,
             'message' => $this->message,
+            'avatar' => $this->avatar,
             'replies' => CommentResource::collection($this->replies),
             'parent_id' => $this->parent_id,
             'level' => $this->level,
-//            'parent' => $this->parent,
             'created_at' => $this->created_at,
         ];
     }

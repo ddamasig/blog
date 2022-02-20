@@ -1,0 +1,14 @@
+.flip {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
+.comment-user {
+  font-size: 0.9rem !important;
+  font-weight: 500;
+}
+
+.comment-message {
+  font-size: 0.9rem !important;
+  font-weight: 400;
+}
