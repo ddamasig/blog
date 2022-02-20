@@ -1,7 +1,24 @@
 <template>
   <!-- Comment Input-->
   <v-form ref="form" @submit.prevent="submit()" class="white fill-height mt-0">
-    <v-divider class="mb-4"></v-divider>
+    <v-divider class="d-block d-sm-none mb-4"></v-divider>
+
+    <v-toolbar class="justify-center px-2" flat>
+      <v-toolbar-title class="title">Write Your Comment</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn
+        v-if="bottomSheet"
+        :loading="isLoading"
+        type="submit"
+        icon
+        class="background"
+        @click="close()"
+        light
+      >
+        <v-icon small>mdi-close</v-icon>
+      </v-btn>
+    </v-toolbar>
+
     <div v-if="replyingTo">
       <span
         class="pl-6"
@@ -33,6 +50,7 @@
             flat
             rounded
             dense
+            counter="32"
             :disabled="isLoading"
           ></v-text-field>
         </v-list-item-title>
@@ -48,6 +66,7 @@
             flat
             rounded
             auto-grow
+            counter="256"
             row-height="1"
             persistent-hint
             :disabled="isLoading"
@@ -66,18 +85,6 @@
             light
           >
             <v-icon small color="white">mdi-send</v-icon>
-          </v-btn>
-          <br/>
-          <v-btn
-            v-if="bottomSheet"
-            :loading="isLoading"
-            type="submit"
-            icon
-            class="mt-8 background"
-            @click="close()"
-            light
-          >
-            <v-icon small>mdi-close</v-icon>
           </v-btn>
         </v-list-item-action-text>
       </v-list-item-action>
@@ -101,20 +108,29 @@ export default {
     rules: {
       user: [
         v => !!v || 'Please enter your name.',
-        v => (v && v.length <= 256) || 'Message must be less than 256 characters.',
+        v => (v && v.length <= 32) || 'Message must be less than 32 characters.',
       ],
       message: [
         v => !!v || 'Please enter your message.',
-        v => (v && v.length <= 1000) || 'Message must be less than 1000 characters.',
+        v => (v && v.length <= 256) || 'Message must be less than 256 characters.',
       ]
     }
   }),
   computed: {
+    /**
+     * Represents the parent comment that the next reply
+     * will be associated to.
+     * @returns {any}
+     */
     replyingTo() {
       return this.$store.getters["comments/replyingTo"]
     },
   },
   methods: {
+    /**
+     * Fires an HTTP request which creates a comment in the back-end.
+     * @returns {Promise<void>}
+     */
     async submit() {
       // Validate the form first
       const isValid = this.$refs.form.validate()
@@ -142,15 +158,17 @@ export default {
       this.$refs.form.resetValidation()
       this.close()
     },
-    randomAvatar() {
-      const randomInt = Math.floor(Math.random() * 9)
-      return `https://i.pravatar.cc/${121 + randomInt}`
-    },
+    /**
+     * Do not associate the pending comment as a reply
+     */
     cancelReply() {
       this.$store.commit('comments/SET_REPLYING_TO', null)
     },
+    /**
+     * Close the bottom sheet
+     */
     close() {
-      this.$store.commit('comments/TOGGLE_COMMENT_INPUT')
+      this.$store.commit('comments/TOGGLE_COMMENT_INPUT', false)
       this.cancelReply()
     }
   }

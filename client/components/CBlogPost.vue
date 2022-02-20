@@ -4,7 +4,7 @@
       <v-list-item class="pa-0">
         <v-list-item-avatar>
           <v-img
-            :src="randomAvatar"
+            src="/avatar4.jpeg"
             lazy-src="/lazy-avatar.png"
           >
           </v-img>
@@ -53,19 +53,19 @@
       <v-spacer></v-spacer>
 
       <v-btn
+        class="d-block d-sm-none"
         elevation="0"
         color="primary"
         @click="showCommentInput()"
       >
         <span class="text-capitalize">
-          Comment
+          Write Comment
           <v-icon>mdi-message-processing-outline</v-icon>
         </span>
       </v-btn>
     </v-card-actions>
 
     <v-divider class="mt-4"></v-divider>
-
 
     <v-card-actions
       v-if="!blog.areCommentsDisabled"
@@ -80,18 +80,9 @@ export default {
   props: {
     blog: Object,
   },
-  computed: {
-    commentInput() {
-      return this.$store.getters["comments/showCommentInput"]
-    },
-    randomAvatar() {
-      const randomInt = Math.floor(Math.random() * 7)
-      return `https://i.pravatar.cc/${121 + randomInt}`
-    }
-  },
   methods: {
     showCommentInput() {
-      this.$store.commit('comments/TOGGLE_COMMENT_INPUT')
+      this.$store.commit('comments/TOGGLE_COMMENT_INPUT', true)
     }
   }
 }

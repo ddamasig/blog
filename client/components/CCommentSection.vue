@@ -1,6 +1,21 @@
 <template>
   <div class="pa-0 ma-0 flex-fill">
 
+    <c-comment-input
+      :bottom-sheet="false"
+      class="d-none d-sm-block"
+    >
+    </c-comment-input>
+
+    <v-divider class="d-none d-sm-block mb-6"></v-divider>
+
+    <!-- Root Comments -->
+    <c-comment
+      v-for="(comment, index) in comments"
+      :key="index"
+      :comment="comment"
+    ></c-comment>
+
     <!-- Load more comments -->
     <v-list-item>
       <v-list-item-content>
@@ -17,18 +32,6 @@
         </v-list-item-title>
       </v-list-item-content>
     </v-list-item>
-
-    <!-- Root Comments -->
-    <c-comment
-      v-for="(comment, index) in comments"
-      :key="index"
-      :comment="comment"
-    ></c-comment>
-
-    <c-comment-input :bottom-sheet="false"
-                     class="d-none d-sm-block"
-    >
-    </c-comment-input>
   </div>
 
 

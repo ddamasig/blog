@@ -5,20 +5,18 @@
         <!-- Parent Comment -->
         <v-list-item three-line>
           <v-list-item-avatar size="32">
-            <v-img :src="randomAvatar()"></v-img>
+            <v-img :src="comment.avatar"></v-img>
           </v-list-item-avatar>
           <v-list-item-content>
-            <div class="rounded pa-3" :class="replyBg">
+            <div class="rounded pa-3 d-inline-block" :class="replyBg">
               <v-list-item-title
                 :class="replyText"
-                class="font-weight-medium"
-                style="font-size: 0.9rem"
+                class="comment-user mb-1"
                 v-text="comment.user">
               </v-list-item-title>
               <v-list-item-subtitle
                 :class="replyText"
-                class="font-weight-regular"
-                style="font-size: 0.9rem"
+                class="comment-message overflow-visible d-inline-block"
                 v-text="comment.message">
               </v-list-item-subtitle>
             </div>
@@ -81,19 +79,8 @@ export default {
   methods: {
     reply() {
       this.$store.commit('comments/SET_REPLYING_TO', this.comment)
-      this.$store.commit('comments/TOGGLE_COMMENT_INPUT')
+      this.$store.commit('comments/TOGGLE_COMMENT_INPUT', true)
     },
-    randomAvatar() {
-      const randomInt = Math.floor(Math.random() * 9)
-      return `https://i.pravatar.cc/${121 + randomInt}`
-    }
   }
 }
 </script>
-
-<style>
-.flip {
-  -webkit-transform: scaleX(-1);
-  transform: scaleX(-1);
-}
-</style>
