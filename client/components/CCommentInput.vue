@@ -134,7 +134,6 @@ export default {
     async submit() {
       // Validate the form first
       const isValid = this.$refs.form.validate()
-      console.log(isValid)
       if (!isValid) {
         return
       }

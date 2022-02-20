@@ -84,7 +84,6 @@ export const mutations = {
 export const actions = {
   // Get a collection of paginated Comment from the database filtered by user id and start date
   async get({commit}, limit = 5) {
-    console.log('Getting Comments')
     await this.$axios.get(`/comments?limit=${limit}`)
       .then((res) => {
         if (res.status === 200) {
@@ -99,19 +98,14 @@ export const actions = {
 
     if (response.status === 201) {
       const newComment = response.data
-      console.log('New Comment:')
-      console.log(newComment)
       // Check if the comment is a reply
       if (newComment.parent_id) {
-        console.log('Appending to parent')
         // Find it's parent comment
-        console.log('Looking for Parent with id ' + newComment.parent_id)
         commit('APPEND_REPLY', {
           parentId: newComment.parent_id,
           reply: newComment
         })
       } else {
-        console.log('Appending new comment')
         // Insert the newly created Comment instance to the list
         commit('UNSHIFT', response.data)
       }
