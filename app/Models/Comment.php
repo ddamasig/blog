@@ -26,7 +26,10 @@ class Comment extends Model
         if ($this->parent->parent_id == null) {
             return 2;
         }
-        return 3;
+        if ($this->parent->parent->parent_id == null) {
+            return 3;
+        }
+        return 4;
     }
 
     // Returns the child comments

@@ -11,6 +11,31 @@ class CommentTest extends TestCase
     use RefreshDatabase;
 
     /**
+     * Tests if the level accessor is working as intended.
+     *
+     * @return void
+     */
+    public function test_level()
+    {
+        $parent = Comment::factory()->createOne();
+        $this->assertEquals(1, $parent->level);
+
+        $reply = $parent->replies()->create([
+            'user' => 'John',
+            'avatar' => '/avatar5.jpeg',
+            'message' => 'lorem ipsum set amet dolor'
+        ]);
+        $this->assertEquals(2, $reply->level);
+
+        $reply2 = $reply->replies()->create([
+            'user' => 'Jane',
+            'avatar' => '/avatar5.jpeg',
+            'message' => 'lorem ipsum set amet dolor'
+        ]);
+        $this->assertEquals(3, $reply2->level);
+    }
+
+    /**
      * Tests if the relationship between parent comment and
      * replies is correct.
      *

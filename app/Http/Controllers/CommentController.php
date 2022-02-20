@@ -4,10 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
+use App\Repository\CommentRepositoryInterface;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+    private $commentRepository;
+
+    public function __construct(CommentRepositoryInterface $commentRepository)
+    {
+        $this->commentRepository = $commentRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,11 +24,7 @@ class CommentController extends Controller
     public function index(Request $request)
     {
         return CommentResource::collection(
-            Comment::with(['replies', 'replies.replies'])
-                ->withCount('replies')
-                ->where('parent_id', null)
-                ->orderBy('created_at', 'desc')
-                ->paginate($request->limit)
+            $this->commentRepository->paginate($request->limit)
         );
     }
 
@@ -41,23 +45,12 @@ class CommentController extends Controller
         // Set the user avatar automatically
         $fields['avatar'] = '/avatar5.jpeg';
 
-        $comment = Comment::create($fields);
+        $comment = $this->commentRepository->create($fields);
 
         return response()->json(
             new CommentResource($comment),
             201
         );
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
 }

@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->string('user')->max(32);
             $table->text('message')->max(256);
-            $table->string('avatar')->max(32);
+            $table->string('avatar')->max(32)->default('/avatar1.jpeg');
             $table->foreignId('parent_id')->nullable()->constrained('comments');
         });
     }
