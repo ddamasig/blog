@@ -23,7 +23,7 @@
             <v-list-item-subtitle>
               <v-btn text small class="text-capitalize">Like</v-btn>
               <v-btn
-                v-if="comment.level < 3"
+                v-if="comment.level < 4"
                 @click="reply"
                 text
                 small

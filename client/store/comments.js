@@ -52,12 +52,22 @@ export const mutations = {
 
       if (e.replies) {
         e.replies.forEach(c => {
-          if(parentId === c.id) {
+          if (parentId === c.id) {
             if (c.replies === null) {
               c.replies = []
             }
             c.replies.unshift(reply)
+            return
           }
+
+          c.replies.forEach(d => {
+            if (parentId === d.id) {
+              if (d.replies === null) {
+                d.replies = []
+              }
+              d.replies.unshift(reply)
+            }
+          })
         })
       }
     })
