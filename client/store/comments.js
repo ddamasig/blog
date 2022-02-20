@@ -39,33 +39,33 @@ export const mutations = {
   },
   // Inserts a new Comment as a reply
   APPEND_REPLY(state, {parentId, reply}) {
-    state.list.data.forEach(e => {
+    state.list.data.forEach(rootComment => {
       // If the parent is in the root level
-      if (e.id === parentId) {
+      if (rootComment.id === parentId) {
         // Make sure that the replies attribute is an array
-        if (e.replies === null) {
-          e.replies = []
+        if (rootComment.replies === null) {
+          rootComment.replies = []
         }
-        e.replies.unshift(reply)
+        rootComment.replies.unshift(reply)
         return
       }
 
-      if (e.replies) {
-        e.replies.forEach(c => {
-          if (parentId === c.id) {
-            if (c.replies === null) {
-              c.replies = []
+      if (rootComment.replies) {
+        rootComment.replies.forEach(childComment => {
+          if (parentId === childComment.id) {
+            if (childComment.replies === null) {
+              childComment.replies = []
             }
-            c.replies.unshift(reply)
+            childComment.replies.unshift(reply)
             return
           }
 
-          c.replies.forEach(d => {
-            if (parentId === d.id) {
-              if (d.replies === null) {
-                d.replies = []
+          childComment.replies.forEach(grandChildComment => {
+            if (parentId === grandChildComment.id) {
+              if (grandChildComment.replies === null) {
+                grandChildComment.replies = []
               }
-              d.replies.unshift(reply)
+              grandChildComment.replies.unshift(reply)
             }
           })
         })
