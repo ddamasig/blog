@@ -29,6 +29,10 @@
     ```bash
     $ sail up -d
     ```
+6. Create and seed the database.
+    ```bash
+    $ sail php artisan migrate:fresh --seed
+    ```
 
 ### Setting up the front-end
 
